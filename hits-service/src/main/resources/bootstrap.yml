@@ -1,0 +1,17 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    config:
+      uri: http://localhost:8888
+  application:
+    name: hits-service
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    config:
+      uri: http://config-server:8888
