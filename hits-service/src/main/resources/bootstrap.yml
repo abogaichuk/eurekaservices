@@ -4,7 +4,12 @@ spring:
       enabled: always
   cloud:
     config:
-      uri: http://localhost:8888
+#      uri: http://localhost:8888
+      uri: http://config-server:8888
+      fail-fast: true
+#      username: user
+#      password: pass
+      password: ${CONFIG_SERVICE_PASSWORD}
   application:
     name: hits-service
 ---

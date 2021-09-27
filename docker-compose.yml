@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  config-server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: pass
+    image: mymicro/eurekaservices-config-server
+    container_name: config-server
+    restart: always
+    mem_limit: 512M
+    ports:
+     - 8888:8888
+
+  discovery-server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: pass
+    image: mymicro/eurekaservices-discovery-server
+    container_name: discovery-server
+    restart: always
+    mem_limit: 512M
+    depends_on:
+      - config-server
+#    entrypoint: ["./dockerize","-wait=tcp://config-server:8888","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+     - 8761:8761
+
+  hits-service:
+    environment:
+      CONFIG_SERVICE_PASSWORD: pass
+    image: mymicro/eurekaservices-hits-service
+    container_name: hits-service
+    restart: always
+    mem_limit: 512M
+    depends_on:
+     - config-server
+     - discovery-server
+#    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    ports:
+    - 8081:8081

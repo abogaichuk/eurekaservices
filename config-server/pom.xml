@@ -8,8 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>config-server</artifactId>
+
+    <name>config-server</name>
+    <description>Configuration Server</description>
 
     <properties>
         <docker.image.exposed.port>8888</docker.image.exposed.port>
@@ -26,5 +28,17 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>config-server</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
